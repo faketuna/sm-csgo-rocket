@@ -83,6 +83,7 @@ public void OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
         g_bPlayerInRocket[i] = false;
         g_bFallDamageExempt[i] = false;
         if (g_hRocketExplodeTimer[i] != INVALID_HANDLE) {
+            KillTimer(g_hRocketExplodeTimer[i]);
             delete g_hRocketExplodeTimer[i];
         }
     }
