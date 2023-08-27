@@ -1,0 +1,47 @@
+"Phrases"
+{
+    "rocket_prefix"
+    {
+        "en"        "{yellow}[Rocket]{default} "
+        "jp"        "{yellow}[Rocket]{default} "
+    }
+    "rocket_launch"
+    {
+        "#format"   "{1:s}"
+        "en"        "{1} is now {blue}launching{default} own rocket!"
+        "jp"        "{1}は自分のロケットを{blue}発射{default}した！"
+    }
+    "evil_rocket_launch"
+    {
+        "#format"   "{1:s}"
+        "en"        "launched {1} into space"
+        "jp"        "{1}を宇宙へと送り出した"
+    }
+    "rocket_explode"
+    {
+        "#format"   "{1:s}"
+        "en"        "{1} {darkred}died{default} in a rocket-related accident"
+        "jp"        "{1}は不慮の事故で{darkred}死亡{default}した"
+    }
+    "rocket_survived"
+    {
+        "#format"   "{1:s}"
+        "en"        "{1}'s rocket has successfully {green}launched{default}!"
+        "jp"        "{1}のロケットは打ち上げに{green}成功{default}した！"
+    }
+    "rocket_flying"
+    {
+        "en"        "Please call again when you land to ground... :)"
+        "jp"        "地上に戻ったらまたお知らせください..."
+    }
+    "rocket_died"
+    {
+        "en"        "You can't launch own rocket because you're already dead..."
+        "jp"        "すでに死んでいるためロケットを発射できません..."
+    }
+    "rocket_disabled"
+    {
+        "en"        "Rocket is {darkred}disabled{default} at this time"
+        "jp"        "ロケットは現在{darkred}無効化{default}されています"
+    }
+}
