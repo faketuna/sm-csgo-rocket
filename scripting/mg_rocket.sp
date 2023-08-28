@@ -13,9 +13,9 @@
 #define DMG_FALL   (1 << 5)
 
 
+bool g_bCancelRocket;
 bool g_bFallDamageExempt[MAXPLAYERS+1];
 bool g_bPlayerInRocket[MAXPLAYERS+1];
-Handle g_hRocketExplodeTimer[MAXPLAYERS+1];
 any g_ExplosionEffect;
 
 ConVar g_bRocketMeEnabled;
@@ -79,14 +79,17 @@ public Action falldamageExemptTimer(Handle timer, int client)
 }
 
 public void OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
+    g_bCancelRocket = true;
     for (int i = 1; i <= MAXPLAYERS; i++) {
         g_bPlayerInRocket[i] = false;
         g_bFallDamageExempt[i] = false;
-        if (g_hRocketExplodeTimer[i] != INVALID_HANDLE) {
-            KillTimer(g_hRocketExplodeTimer[i]);
-            delete g_hRocketExplodeTimer[i];
-        }
     }
+    CreateTimer(GetConVarFloat(g_fRocketExplodeTime), roundStartCancelRocketTimer, _, TIMER_FLAG_NO_MAPCHANGE);
+}
+
+public Action roundStartCancelRocketTimer(Handle timer) {
+    g_bCancelRocket = false;
+    return Plugin_Handled;
 }
 
 public void OnMapStart() {
@@ -172,7 +175,7 @@ void PerformEvilRocket(int client, int target) {
 
         AttachFlame(target);
         CreateTimer(0.0, LaunchRocket, target);
-        g_hRocketExplodeTimer[target] = CreateTimer(GetConVarFloat(g_fRocketExplodeTime), DetonateRocket, target);
+        CreateTimer(GetConVarFloat(g_fRocketExplodeTime), DetonateRocket, target);
         g_bPlayerInRocket[target] = true;
     }
 }
@@ -208,6 +211,15 @@ public Action DetonateRocket(Handle timer, int client) {
 
     float vPlayer[3];
     GetClientAbsOrigin(client, vPlayer);
+    if(g_bCancelRocket) {
+        char name[32];
+        GetClientName(client, name, sizeof(name));
+        CPrintToChatAll("%t%t", "rocket_prefix", "rocket_cancelled", name);
+
+        SetEntityGravity(client, 1.0);
+        g_bPlayerInRocket[client]   = false;
+        return Plugin_Handled;
+    }
 
     if (!canDetonate()) {
         char buff[256];

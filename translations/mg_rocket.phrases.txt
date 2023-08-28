@@ -29,6 +29,12 @@
         "en"        "{1}'s rocket has successfully {green}launched{default}!"
         "jp"        "{1}のロケットは打ち上げに{green}成功{default}した！"
     }
+    "rocket_cancelled"
+    {
+        "#format"   "{1:s}"
+        "en"        "{1}'s rocket has {darkred}cancelled{default} due to equipment trouble"
+        "jp"        "{1}のロケットは機材トラブルにより{darkred}キャンセル{default}された"
+    }
     "rocket_flying"
     {
         "en"        "Please call again when you land to ground... :)"
